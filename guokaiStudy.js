@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         国家开放大学自动学习(新平台)
 // @namespace    http://tampermonkey.net/
-// @version      0.1
+// @version      0.2
 // @description  国家开放大学自动学习
 // @author       ZhangJinYuan
 // @match        http://*/*
@@ -13,5 +13,5 @@
 (function () {
 	'use strict';
 
-	 console.log('加载了...');
+	 console.log('加载了...111');
 })();
