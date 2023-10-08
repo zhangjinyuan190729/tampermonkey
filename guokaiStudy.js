@@ -1,17 +1,11 @@
 // ==UserScript==
 // @name             国开自动刷课（不答题考试）补丁版
 // @namespace        http://ibaiyu.top/
-// @version          1.8
+// @version          2.0
 // @description      国开（国家开放大学）自动刷课（不答题考试） 支持自动访问线上链接、查看资料附件、观看视频、自动查看页面、自动参与发帖回帖。
-// @note             1.5.4： 优化了下代码，并让它更加易读了。同时修复了发帖的时候轮询没被clear的问题。
-// @note             1.5.5： 修复了视频/音频不会播放的问题 修复了查看页面任务类型不会返回的问题 修复了课程附件的问题
-// @note             1.5.6： 优化了获取课程任务的代码，并且查询dom元素存在的函数添加了个maxCount参数
-// @note             1.5.7： 脚本无任何更新，主要是为了更新版本号
-// @note             1.5.8： 修复了发帖会提示内容重复的问题（解决办法：添加unix时间戳）
-// @note             1.5.9： 修复了如果课程有直播课并且已结束的前提下会异常的BUG
-// @note             1.5.10：这次会增加学习行为记录了，但视频学习记录好像还是没有增加 待研究
-// @note             1.5.11：修改学习行为记录的API调用函数 这回去除了定时器
-// @author           蜜桃加乌龙
+// @note             感谢原作者蜜桃加乌龙,此作品在其基础上修改
+// @note             修复了网站更新后不能用的问题.
+// @author           蜡笔小张
 // @icon             data:image/png;base64,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
 // @match          *://lms.ouchn.cn/course/*
 // @original-author  蜜桃加乌龙
@@ -66,7 +60,7 @@ const interval = {
 
 	// 创建返回到课程列表页面的函数。
 	async function returnCoursePage(waitTime = 500) {
-		(await waitForElement(".return-link > a", waitTime))?.click();
+		(await waitForElement(".full-screen-mode-back", waitTime))?.click();
 	}
 
 	// 将中文类型名称转换为英文枚举值。
@@ -280,22 +274,22 @@ const interval = {
 
 	// 打开课程任务并发布帖子。
 	async function openForum() {
-		// 使用 waitForElement 函数等待 .embeded-new-topic>i 元素出现，并赋值给 topicElement 变量
-		const topicElement = await waitForElement(".embeded-new-topic>i", interval.forum);
+		// 使用 waitForElement 函数等待 .ivu-btn>i 元素出现，并赋值给 topicElement 变量
+		const topicElement = await waitForElement(".forum-toolbar-filter>button", interval.forum);
 		// 点击话题元素并等待一段时间
 		topicElement.click();
 		await wait(interval.forum);
 
 		// 获取标题、内容和提交按钮元素
-		const titleElem = $("#add-topic-popup > div > div.topic-form-section.main-area > form > div:nth-child(1) > div.field > input");
-		const contentElem = document.querySelector('#add-topic-popup > div > div.topic-form-section.main-area .simditor-body.needsclick[contenteditable]');
-		const submitElem = document.querySelector("#add-topic-popup > div > div.popup-footer > div > button.button.button-green.medium");
+		const titleElem = $("#add-topic-popup input.ng-pristine.ng-untouched.ng-valid.ng-empty.ng-valid-server");
+		const contentElem = document.querySelector('#add-topic-popup .simditor-body.needsclick');
+		const submitElem = document.querySelector("#add-topic-popup .popup-footer button.button-green.medium");
 
 		// 设置标题和内容
-		titleElem.val(`好好学习${Date.now()}`).trigger('change');
+		titleElem.val(`新的学期`).trigger('change');
 
 		// 点击提交按钮并延迟一段时间后返回课程页面
-		contentElem.innerHTML = `<p>好好学习，天天向上。${Date.now()}</p>`;
+		contentElem.innerHTML = `<p>好好学习,天天向上</p>`;
 		submitElem.click();
 
 		// 等待一段时间后执行returnCoursePage函数
@@ -321,20 +315,18 @@ const interval = {
 
 		console.log("正在获取加载的课程任务");
 		const courseElements = await waitForElements('.learning-activity .clickable-area', interval.loadCourse);
-		console.log(courseElements,'获取的课程任务列表dom ')
+
 		const courseElement = Array.from(courseElements).find(elem => {
 			const type = $(elem.querySelector('i.font[original-title]')).attr('original-title'); // 获取该课程任务的类型
-			const status = $(elem.querySelector('span.item-status')).text(); // 获取该课程任务是否进行中
-			console.log(status,'课程状态')
+			const status = $(elem.querySelector('div.completeness')).attr('class').split(' ')[1]; // 获取该课程任务是否进行中
 			const typeEum = getTypeEum(type);
 
 			if (!typeEum) {
 				return false;
 			}
 
-			const completes = $(elem.querySelector('div.completeness[tipsy-literal]')).attr('tipsy-literal').match(/^<b>(\W+)<\/b>/)[1] === "已完成" ? true : false;
 
-			const result = status === "进行中" && typeEum != null && completes === false;
+			const result = (status === "part" || status === "none") && (typeEum != null && typeEum != 'forum')
 			if (result) {
 				GM_setValue(`typeEum-${courseId}`, typeEum);
 			}
