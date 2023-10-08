@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name             国开自动刷课（不答题考试）补丁版
 // @namespace        http://ibaiyu.top/
-// @version          2.0
+// @version          2.1
 // @description      国开（国家开放大学）自动刷课（补丁版） 自动访问线上链接(未测试)、自动参与发帖回帖(已禁用),其他功能和之前一样。
 // @description      感谢原作者蜜桃加乌龙,此作品在其基础上进行修复
 // @note             修复了网站更新后不能用的问题.
