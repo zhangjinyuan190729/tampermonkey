@@ -325,7 +325,7 @@ const interval = {
 		const courseElement = Array.from(courseElements).find(elem => {
 			const type = $(elem.querySelector('i.font[original-title]')).attr('original-title'); // 获取该课程任务的类型
 			const status = $(elem.querySelector('span.item-status')).text(); // 获取该课程任务是否进行中
-
+			console.log(status,'课程状态')
 			const typeEum = getTypeEum(type);
 
 			if (!typeEum) {
