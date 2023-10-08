@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name             国开自动刷课（不答题考试）补丁版
 // @namespace        http://ibaiyu.top/
-// @version          1.6
+// @version          1.7
 // @description      国开（国家开放大学）自动刷课（不答题考试） 支持自动访问线上链接、查看资料附件、观看视频、自动查看页面、自动参与发帖回帖。
 // @note             1.5.4： 优化了下代码，并让它更加易读了。同时修复了发帖的时候轮询没被clear的问题。
 // @note             1.5.5： 修复了视频/音频不会播放的问题 修复了查看页面任务类型不会返回的问题 修复了课程附件的问题
@@ -321,7 +321,7 @@ const interval = {
 
 		console.log("正在获取加载的课程任务");
 		const courseElements = await waitForElements('.learning-activity .clickable-area', interval.loadCourse);
-
+		console.log(courseElements,'获取的课程任务列表dom ')
 		const courseElement = Array.from(courseElements).find(elem => {
 			const type = $(elem.querySelector('i.font[original-title]')).attr('original-title'); // 获取该课程任务的类型
 			const status = $(elem.querySelector('span.item-status')).text(); // 获取该课程任务是否进行中
